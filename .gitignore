@@ -1,1 +1,9 @@
+*.log
 .idea
+bin/
+mysql/data
+nginx/logs
+obj/
+
+!mysql/data/.keep
+!nginx/logs/.keep

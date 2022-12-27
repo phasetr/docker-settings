@@ -1,3 +1,5 @@
 bin/
 obj/
+mysql/data
 *.log
+!mysql/data/.keep
