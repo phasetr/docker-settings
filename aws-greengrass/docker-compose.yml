@@ -1,0 +1,7 @@
+version: '3.7'
+services:
+  awsapp:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    stdin_open: true

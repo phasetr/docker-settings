@@ -1,0 +1,6 @@
+db/ddl
+db/logs
+db/mysql-data
+html/
+
+!html/index.php

@@ -1,0 +1,6 @@
+db/logs
+db/mysql-data
+html/my-laravel-app
+
+!logs/.gitkeep
+!mysql-data/.gitkeep

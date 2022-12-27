@@ -1,0 +1,6 @@
+composer.phar
+html
+logs/
+mysql-data
+
+!html/.gitkeep

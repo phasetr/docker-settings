@@ -1,0 +1,65 @@
+version: '3'
+
+networks:
+  frontend:
+    driver: bridge
+  backend:
+    driver: bridge
+
+volumes:
+  db-data:
+    driver: local
+
+services:
+  web:
+    image: nginx:alpine
+    container_name: sampleweb
+    env_file:
+      - ./.env
+    ports:
+      - 80:80
+    volumes:
+      - ./html:/var/www/html
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./logs/nginx:/var/log/nginx
+    links:
+      - php
+      - mysql:sampledb
+    networks:
+      - frontend
+      - backend
+  php:
+    build: ./php-fpm
+    container_name: samplephp
+    env_file:
+      - ./.env
+    volumes:
+      - ./html:/var/www/html
+    networks:
+      - backend
+  mysql:
+    image: mysql/mysql-server:5.7.28
+    container_name: sampledb
+    ports:
+      - 3306:3306
+    env_file:
+      - ./.env
+    volumes:
+      - ./mysql-conf/etc-mysql.cnf:/etc/mysql/conf.d/etc-mysql.cnf
+      - ./mysql-init:/docker-entrypoint-initdb.d
+      - ./mysql-data:/var/lib/mysql
+    networks:
+      - backend
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    env_file:
+      - ./.env
+    ports:
+      - 8080:80
+    links:
+      - mysql:db
+    volumes:
+      - /sessions
+    container_name: samplepma
+    networks:
+      - backend
