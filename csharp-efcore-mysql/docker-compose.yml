@@ -1,0 +1,31 @@
+version: '3'
+volumes:
+  exclude:
+  mysqldata:
+
+services:
+  mysql:
+    image: mysql:8.0
+    platform: linux/x86-64
+    tty: true
+    env_file: .env
+    environment:
+      MYSQL_ROOT_HOST: ${DB_ROOT_HOST}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASS}
+      # MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASS}
+      MYSQL_DATABASE: ${DB_NAME}
+      TZ: ${TZ}
+    ports:
+      - ${DB_PORT}:3306
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost", "-uuser", "-ppass"]
+      timeout: 20s
+      retries: 10
+    volumes:
+      - ./mysql/conf:/etc/mysql/conf.d/:ro
+      - ./mysql/logs:/var/log/mysql
+      - ./mysql/init:/docker-entrypoint-initdb.d
+      - mysqldata:/var/lib/mysql
+    command: mysqld --innodb_use_native_aio=0
