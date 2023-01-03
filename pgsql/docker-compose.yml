@@ -22,5 +22,8 @@ services:
       timeout: 5s
       retries: 5
     volumes:
-      - ./pgsql/data:/var/lib/postgresql/data
+      - ./:/work
+    #   - ./pgsql/data:/var/lib/postgresql/data
+    working_dir: /work
+    # volumes:
     # command: mysqld --innodb_use_native_aio=0
