@@ -16,10 +16,20 @@ P.12
 - URL: `psql postgresql://myuser:mypasswd@myhost:5432/mydb`
 
 P.15
+
 - `postgresql.conf`
 - `pg_hba.conf`: ホストベースの認証.
   パスワードがプレーンテキストで送られるため, パスワード認証方式を使わないこと.
 
+P.30
+バックスラッシュから始まるコマンドはメタコマンドという.
+
+P.34: パスワードファイルは`~/.pgpass`が標準.
+`chmod 600`を設定していないと無視される.
+
+P.35: 接続サービスファイル.
+システム全体は`/etc/pg_service.conf`,
+個々のユーザーは`~/.pg_service.conf`.
 ## Postgresqlコマンド類
 ```
 psql -Upostgres # ログイン
@@ -34,6 +44,10 @@ psql -f example.sql
 SELECT current_database();
 SELECT current_user;
 SELECT version();
+
+# パスワード変更
+SET password_encryption='scram-sha-256';
+\password
 ```
 
 ## docker
