@@ -1,0 +1,8 @@
+version: '2'
+services:
+ smtp:
+  image: schickling/mailcatcher
+  container_name: 'smtp'
+  ports:
+   - "1080:1080"
+   - "1025:1025"
