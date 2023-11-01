@@ -1,6 +1,6 @@
 FROM nginx:1.25.0 AS base
 EXPOSE 80
-COPY index.htmo /usr/share/nginx/html/index.html
+COPY index.html /usr/share/nginx/html/index.html
 
 FROM base AS publish
 COPY index1.html /usr/share/nginx/html/index.html
